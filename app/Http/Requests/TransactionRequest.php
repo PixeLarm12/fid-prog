@@ -6,23 +6,32 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class TransactionRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
-    public function authorize(): bool
-    {
-        return false;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
-        ];
+			'user_id'                 => 'required|integer',
+			'total'                => 'required|decimal',
+			'date'                => 'required|datetime',
+		];
     }
+
+    public function messages() : array
+	{
+		return [
+			'user_id.required'                 => 'User is required',
+			'user_id.integer'                 => 'User must be integer',
+			'total.required'                 => 'Total is required',
+			'total.decimal'                 => 'Total must be decimal',
+			'date.datetime'                 => 'Date must be datetime',
+		];
+	}
+
+    public function getData() : array
+	{
+		return [
+			'user_id'                 => $this->input('user_id'),
+			'total'                => $this->input('total'),
+			'date'                => $this->input('date'),
+		];
+	}
 }
