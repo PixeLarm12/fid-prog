@@ -6,3 +6,7 @@
 4. For Laravel configuration, run `php artisan key:generate` to create application key;
 5. Then, start MySQl tables running `php artisan migrate` or `php artisan migrate:fresh` in some cases;
 6. Finally, access your local routes acessing `localhost:80` in your browser!
+
+# Some useful commands
+
+1. To generate JWT tokens: `php artisan jwt:secret`
