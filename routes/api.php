@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\Route;
 	 */
 	Route::prefix(TransactionEnum::ROUTE_PREFIX)->group(function () {
 		Route::get('/', [TransactionController::class, 'index'])->name('transactions.index');
+		Route::get('/metrics', [TransactionController::class, 'metrics'])->name('transactions.metrics');
 		Route::post('/', [TransactionController::class, 'store'])->name('transactions.store');
 	});
 
