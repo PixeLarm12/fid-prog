@@ -9,27 +9,27 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-			'title'                 => 'required|min:3|max:70',
-			'price'                => 'required|decimal',
+			'title' => 'required|min:3|max:70',
+			'price' => 'required|numeric',
 		];
     }
 
     public function messages() : array
 	{
 		return [
-			'title.required'                 => 'Title is required',
-			'title.min'                      => 'Title must have at least 3 characters',
-			'title.max'                      => 'Title cannot be longer than 70 characters',
-			'price.required'                 => 'Price is required',
-			'price.decimal'                 => 'Price must be decimal',
+			'title.required' => 'Title is required',
+			'title.min' => 'Title must have at least 3 characters',
+			'title.max' => 'Title cannot be longer than 70 characters',
+			'price.required' => 'Price is required',
+			'price.numeric' => 'Price must be numeric',
 		];
 	}
 
     public function getData() : array
 	{
 		return [
-			'title'                 => $this->input('title'),
-			'price'                => $this->input('price'),
+			'title' => $this->input('title'),
+			'price' => $this->input('price'),
 		];
 	}
 }

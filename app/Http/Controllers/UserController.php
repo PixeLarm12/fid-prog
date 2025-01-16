@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends BaseController
@@ -13,9 +14,9 @@ class UserController extends BaseController
 		parent::__construct($service);
 	}
 
-	public function index()
+	public function index(Request $request)
 	{
-		return $this->defaultResponse($this->service->getAllRecords());
+		return $this->defaultResponse($this->service->getAllRecords($request->get('name')));
 	}
 
 	public function store(UserRequest $request)
@@ -27,9 +28,9 @@ class UserController extends BaseController
 	{
 		return $this->defaultResponse($this->service->findRecord($id));
 	}
-
-	public function update(UserRequest $request, string $id)
+	
+	public function getUsersBalance(Request $request)
 	{
-		return $this->defaultResponse($this->service->updateRecord($id, $request->getData()), Response::HTTP_CREATED);
+		return $this->defaultResponse($this->service->getUsersBalance($request->get('order')));
 	}
 }
