@@ -25,4 +25,21 @@ class UserService extends BaseService
         })
         ->get();
 	}
+
+	/**
+	 * List all fidelity points balance sort by user.
+	 *
+	 * @return \Illuminate\Support\Collection
+	 */
+	public function getUsersBalance($order = null) : \Illuminate\Support\Collection
+	{
+		if(!$order) {
+			$order = 'desc';
+		}
+
+ 		return User::query()
+				->select('id', 'name', 'fidelity_points') 
+				->orderBy('fidelity_points', $order) 
+				->get();
+	}
 }

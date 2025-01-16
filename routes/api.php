@@ -15,14 +15,14 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Middleware\JwtMiddleware;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware([JwtMiddleware::class])->group(function () {
+// Route::middleware([JwtMiddleware::class])->group(function () {
 	/**
 	 * USERS
 	 */
 	Route::prefix(UserEnum::ROUTE_PREFIX)->group(function () {
 		Route::get('/', [UserController::class, 'index'])->name('users.index');
+		Route::get('/balance', [UserController::class, 'getUsersBalance'])->name('users.getUsersBalance');
 		Route::post('/', [UserController::class, 'store'])->name('users.store');
-		Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
 		Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
 	});
 
@@ -51,9 +51,6 @@ Route::middleware([JwtMiddleware::class])->group(function () {
 	 */
 	Route::prefix(PrizeEnum::ROUTE_PREFIX)->group(function () {
 		Route::get('/', [PrizeController::class, 'index'])->name('prizes.index');
-		Route::post('/', [PrizeController::class, 'store'])->name('prizes.store');
-		Route::put('/{id}', [PrizeController::class, 'update'])->name('prizes.update');
-		Route::get('/{id}', [PrizeController::class, 'show'])->name('prizes.show');
 	});
 
     /**
@@ -65,4 +62,4 @@ Route::middleware([JwtMiddleware::class])->group(function () {
 		Route::put('/{id}', [PrizeRedeemController::class, 'update'])->name('prize_redeems.update');
 		Route::get('/{id}', [PrizeRedeemController::class, 'show'])->name('prize_redeems.show');
 	});
-});
+// });

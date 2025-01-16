@@ -28,4 +28,9 @@ class UserController extends BaseController
 	{
 		return $this->defaultResponse($this->service->findRecord($id));
 	}
+	
+	public function getUsersBalance(Request $request)
+	{
+		return $this->defaultResponse($this->service->getUsersBalance($request->get('order')));
+	}
 }
