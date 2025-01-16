@@ -7,21 +7,20 @@ use App\Enums\UserEnum;
 use App\Enums\ProductEnum;
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PrizeController;
 use App\Http\Controllers\PrizeRedeemController;
 use App\Http\Controllers\TransactionController;
 
-use App\Http\Middleware\JwtMiddleware;
+use App\Http\Middleware\RoleMiddleware;
 use Illuminate\Support\Facades\Route;
 
-// Route::middleware([JwtMiddleware::class])->group(function () {
+Route::middleware([RoleMiddleware::class])->group(function () {
 	/**
 	 * USERS
 	 */
 	Route::prefix(UserEnum::ROUTE_PREFIX)->group(function () {
 		Route::get('/', [UserController::class, 'index'])->name('users.index');
-		Route::get('/balance', [UserController::class, 'getUsersBalance'])->name('users.getUsersBalance');
+		Route::get('/balance', [UserController::class, 'getUsersBalance'])->name('users.balance');
 		Route::post('/', [UserController::class, 'store'])->name('users.store');
 		Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
 	});
@@ -48,4 +47,4 @@ use Illuminate\Support\Facades\Route;
 	Route::prefix(PrizeRedeemEnum::ROUTE_PREFIX)->group(function () {
 		Route::post('/', [PrizeRedeemController::class, 'store'])->name('prize_redeems.store');
 	});
-// });
+});
