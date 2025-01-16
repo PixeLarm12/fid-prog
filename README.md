@@ -5,8 +5,6 @@
 3. After built, access Docker terminal by `docker exec -it fid-php bash` and run `composer install`;
 4. For Laravel configuration, run `php artisan key:generate` to create application key;
 5. Then, start MySQl tables running `php artisan migrate` or `php artisan migrate:fresh` in some cases;
-6. Finally, access your local routes acessing `localhost:80` in your browser!
+6. Finally, access your local routes acessing `localhost/api` and following `routes/api.php` file.
 
-# Some useful commands
-
-1. To generate JWT tokens: `php artisan jwt:secret`
+**OBS:** You can use `/postman_collection.json` to see which routes i`ve made, but certified that environment variables are correctly imported!
