@@ -2,10 +2,13 @@
 
 namespace App\Services;
 
+use App\Mail\PrizeRedeemedMail;
 use App\Repositories\PrizeRedeemRepository;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Mail;
 
 class PrizeRedeemService extends BaseService
 {
@@ -41,6 +44,17 @@ class PrizeRedeemService extends BaseService
 			throw new Exception('User does not have enough balance to redeem prize!', Response::HTTP_UNPROCESSABLE_ENTITY);
 		}
 
-		return parent::saveRecord($data);
+		$redeemed = parent::saveRecord($data);
+
+		$mailData = [
+			'prize' => ucfirst($prize->title),
+			'cost' => $prize->points,
+			'balance' => $user->fidelity_points - $prize->points,
+			'date' => $redeemed->date
+		]; 
+		
+		Mail::to($user->email)->send(new PrizeRedeemedMail($mailData));
+
+		return $redeemed;
 	}
 }
