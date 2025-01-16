@@ -47,6 +47,9 @@ return Application::configure(basePath: dirname(__DIR__))
             } else if($e instanceof UnprocessableEntityHttpException) {
                 $return->message = $e->getMessage();
                 $return->code = Response::HTTP_UNPROCESSABLE_ENTITY;
+            } else if($e instanceof Exception) {
+                $return->message = $e->getMessage();
+                $return->code = Response::HTTP_INTERNAL_SERVER_ERROR;
             }
 
             return response()->json(
