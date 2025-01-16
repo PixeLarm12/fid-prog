@@ -26,6 +26,6 @@ class TransactionController extends BaseController
 
 	public function metrics(Request $request)
 	{
-		return $this->defaultResponse($this->service->getMetricsReport($request->get('start_date'), $request->get('end_date')), Response::HTTP_CREATED);
+		return $this->defaultResponse($this->service->getMetricsReport($request->get('user_id'),  $request->get('start_date'), $request->get('end_date')), Response::HTTP_CREATED);
 	}
 }

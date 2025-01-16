@@ -43,7 +43,7 @@ class TransactionService extends BaseService
 		return $transaction;
 	}
 
-	public function getMetricsReport($startDate, $endDate = null) 
+	public function getMetricsReport($userId, $startDate, $endDate = null) 
 	{
 		$startDate = Carbon::parse($startDate)->startOfDay();
 		
@@ -54,8 +54,13 @@ class TransactionService extends BaseService
 		}
 
 		$metrics = Transaction::whereBetween('date', [$startDate, $endDate])
+			->where('user_id', $userId)
 			->selectRaw('SUM(total) as total_spent, SUM(total / 5) as fidelity_points')
 			->first();
+
+		if(!$metrics['total_spent']){
+			$metrics['total_spent'] = "0.00";
+		};
 
 		return [
 			'total_spent' => "$ " . $metrics['total_spent'],
