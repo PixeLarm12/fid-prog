@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Models\Prize;
 use App\Repositories\PrizeRepository;
 
 class PrizeService extends BaseService
 {
-	public function __construct(PrizeRepository $repository)
+	public function __construct()
 	{
-		parent::__construct($repository);
+		parent::__construct(new PrizeRepository(new Prize()));
 	}
 }

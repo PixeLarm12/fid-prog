@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +40,8 @@ class Transaction extends Model
         parent::boot();
 
         static::created(function ($transaction) {
-            $user = User::find($transaction->user_id);
+            $userService = new UserService();
+            $user = $userService->findRecord($transaction->user_id);
 
             if($user) {
                 $points = floor($transaction->total / 5);
@@ -50,7 +52,6 @@ class Transaction extends Model
             }
         });
     }
-
 
     public function items() : HasMany
     {

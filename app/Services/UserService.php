@@ -7,9 +7,9 @@ use App\Repositories\UserRepository;
 
 class UserService extends BaseService
 {
-	public function __construct(UserRepository $repository)
+	public function __construct()
 	{
-		parent::__construct($repository);
+		parent::__construct(new UserRepository(new User()));
 	}
 
 	/**
