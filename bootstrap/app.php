@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\AbstractEnum;
+use App\Jobs\SendMaxPrizePointsEmail;
 use App\Util\StringUtil;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -57,4 +58,8 @@ return Application::configure(basePath: dirname(__DIR__))
                 $return->code
             );
         });
-    })->create();
+    })
+    ->withSchedule(function (Schedule $schedule) {
+        $schedule->job(new SendMaxPrizePointsEmail())->daily();
+    })
+    ->create();
