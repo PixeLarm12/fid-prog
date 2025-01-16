@@ -33,7 +33,7 @@ class UserService extends BaseService
 	 */
 	public function getUsersBalance($order = null) : \Illuminate\Support\Collection
 	{
-		$order = strtolower($order) === 'desc' ? 'desc' : 'asc';
+		$order = strtolower($order) ? strtolower($order) : 'desc';
 
 		$users = User::query()
 			->select('id', 'name', 'fidelity_points')
