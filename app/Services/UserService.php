@@ -33,13 +33,22 @@ class UserService extends BaseService
 	 */
 	public function getUsersBalance($order = null) : \Illuminate\Support\Collection
 	{
-		if(!$order) {
-			$order = 'desc';
-		}
+		$order = strtolower($order) === 'desc' ? 'desc' : 'asc';
 
- 		return User::query()
-				->select('id', 'name', 'fidelity_points') 
-				->orderBy('fidelity_points', $order) 
-				->get();
+		$users = User::query()
+			->select('id', 'name', 'fidelity_points')
+			->with('redeemed')
+			->orderBy('fidelity_points', $order)
+			->get()
+			->map(function ($user) {
+				return [
+					'id' => $user->id,
+					'name' => $user->name,
+					'fidelity_points' => $user->fidelity_points,
+					'redeemed' => $user->redeemed->pluck('name'),
+				];
+			});
+	
+		return $users;
 	}
 }
