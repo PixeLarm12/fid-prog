@@ -58,8 +58,8 @@ class PrizeRedeem extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function prize() : HasOne
+    public function prize(): BelongsTo
     {
-        return $this->hasOne(Prize::class);
+        return $this->belongsTo(Prize::class, 'prize_id');
     }
 }

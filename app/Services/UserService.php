@@ -37,7 +37,7 @@ class UserService extends BaseService
 
 		$users = User::query()
 			->select('id', 'name', 'fidelity_points')
-			->with('redeemed')
+			->with('redeemed.prize')
 			->orderBy('fidelity_points', $order)
 			->get()
 			->map(function ($user) {
@@ -45,7 +45,9 @@ class UserService extends BaseService
 					'id' => $user->id,
 					'name' => $user->name,
 					'fidelity_points' => $user->fidelity_points,
-					'redeemed' => $user->redeemed->pluck('name'),
+					'redeemed' => $user->redeemed->map(function ($redeemedItem) {
+						return $redeemedItem->prize->title;
+					}),
 				];
 			});
 	

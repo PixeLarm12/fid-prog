@@ -59,6 +59,6 @@ class User extends Authenticatable
 
     public function redeemed() : HasMany
     {
-        return $this->hasMany(PrizeRedeem::class);
+        return $this->hasMany(PrizeRedeem::class, 'user_id')->with('prize');
     }
 }
