@@ -45,6 +45,6 @@ use Illuminate\Support\Facades\Route;
 	 * PRIZE REDEEMS
 	 */
 	Route::prefix(PrizeRedeemEnum::ROUTE_PREFIX)->group(function () {
-		Route::post('/store', [PrizeRedeemController::class, 'store'])->name('prize_redeems.store');
+		Route::post('/', [PrizeRedeemController::class, 'store'])->name('prize_redeems.store');
 	});
 // });

@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('prize_redeems', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->string('redeemed');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('prize_id');
             $table->timestamps();
